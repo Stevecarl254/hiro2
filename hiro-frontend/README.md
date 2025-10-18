@@ -46,7 +46,7 @@ Check versions:
 ```bash
 node -v
 npm -v
-
+```
 ---
 
 ## 🧩 Why Modular Architecture?
