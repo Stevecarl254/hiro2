@@ -51,9 +51,10 @@ sudo apt install nodejs npm
 Or install via nvm (recommended):
 
 ```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 source ~/.bashrc
-nvm install --lts
+nvm install 18
+nvm use 18
 ```
 
 ### 2️⃣ Clone the Project
