@@ -1,4 +1,5 @@
-import Staff from "../models/Staff.js"
+import Staff from "../models/Staff.js";
+import Booking from "../models/Booking.js";
 
 // get or see all staff public route
 export const getStaff = async (req, res) => {
@@ -79,4 +80,45 @@ export const updateProfile = async (req, res) => {
     } catch (error) {
 	res.status(500).json({ message: "Server error", error: error.message });
     }
+};
+
+export const setStaffAvailability = async (req, res) => {
+    try {
+	const { staffId } = req.params;
+	const { unaavailableDates, isAvailable } = req.body;
+
+	const staff = await Staff.findById(staffId);
+	if (!staff) return res.status(404).json({
+	    error: "Staff not found"
+	});
+	if (unaavailableDates && Array.isArray(unavailableDates)) {
+	    staff.unavailableDates = unavailableDates;
+	}
+	if (typeof isAvailable === "boolean") {
+	    staff.isAvailable = isAvailable;
+	}
+
+	await staff.save();
+	res.status(200).json({ message: "Availability set successfully", staff });
+    } catch (error) {
+	res.status(500).json({ message: "Server error", error: error.message });
+    }
+};
+
+// Example: Free staff after event
+export const releaseStaff = async (bookingId) => {
+    const booking = await Booking.findById(bookingId);
+    if (!booking) return;
+
+    const staff = await Staff.findById(booking.staff);
+    if (!staff) return;
+
+    // Remove that date from unavailableDates
+    staff.unavailableDates = staff.unavailableDates.filter(
+	(d) => new Date(d).toDateString() !== new Date(booking.date).toDateString()
+    );
+    // If staff is frre and no other unavailable dates, mark available again
+    if (staff.unavailableDates.length === 0) staff.isAvailable = true;
+
+    await staff.save();
 };

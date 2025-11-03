@@ -21,6 +21,8 @@ const staffSchema = new mongoose.Schema(
 	experience: { type: String },
 	image_url: { type: String },
 	bio: { type: String },
+	isAvailable: {type: Boolean, default: true },
+	unavailableDates: [{ type: Date }],
 	addedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     },
     { timestamps: true }

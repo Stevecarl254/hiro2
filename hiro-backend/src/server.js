@@ -9,7 +9,7 @@ import { connectRedis } from "./config/redis.js";
 import userRoutes from "./routes/userRoutes.js"
 import staffRoutes from "./routes/staffRoutes.js"
 // import toolRoutes from "./routes/toolRoutes.js"
-// import bookingRoutes from "./routes/bookingRoutes.js"
+import bookingRoutes from "./routes/bookingRoutes.js"
 
 dotenv.config();
 
@@ -48,7 +48,7 @@ const startServer = async () => {
     app.use("/api/users", userRoutes);
     app.use("/api/staff", staffRoutes);
     // app.use("/api/tools", toolRoutes);
-    // app.use("/api/bookings", bookingRoutes);
+    app.use("/api/bookings", bookingRoutes);
 
     const PORT = process.env.PORT || 5000;
     app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
